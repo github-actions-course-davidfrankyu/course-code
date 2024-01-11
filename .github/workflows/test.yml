@@ -1,0 +1,32 @@
+name: test
+on: [push]
+
+jobs:
+  build_and_test:
+    name: build and test
+    runs-on: ubuntu-latest
+    timeout-minutes: 120
+    steps:
+      - uses: actions/checkout@v4
+      - name: Cache cargo & target directories
+        uses: Swatinem/rust-cache@v2
+        with:
+          key: "v2"
+      - name: Configure Git
+        run: |
+          git config --global user.email "jdoe@example.com"
+          git config --global user.name "J. Doe"
+      - name: Build binary
+        uses: houseabsolute/actions-rust-cross@v0
+        with:
+          command: "build"
+          target: x86_64-unknown-linux-musl
+          toolchain: stable
+          args: "--verbose --release"
+      - name: Run tests
+        uses: houseabsolute/actions-rust-cross@v0
+        with:
+          command: "test"
+          target: x86_64-unknown-linux-musl
+          toolchain: stable
+          args: "--verbose --release"
