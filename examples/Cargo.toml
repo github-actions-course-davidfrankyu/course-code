@@ -1,0 +1,25 @@
+[package]
+name = "iggy_examples"
+version = "0.0.1"
+edition = "2021"
+
+[[example]]
+name = "getting-started-consumer"
+path = "src/getting-started/consumer/main.rs"
+
+[[example]]
+name = "getting-started-producer"
+path = "src/getting-started/producer/main.rs"
+
+[dependencies]
+anyhow = "1.0.79"
+bytes = "1.4.0"
+clap = { version = "4.4.13", features = ["derive"] }
+iggy = "0.1.7"
+rand = "0.8.5"
+serde = { version = "1.0.194", features = ["derive", "rc"] }
+serde_json = "1.0.111"
+thiserror = "1.0.56"
+tokio = { version = "1.28.2", features = ["full"] }
+tracing = { version = "0.1.37" }
+tracing-subscriber = { version = "0.3.16" }
