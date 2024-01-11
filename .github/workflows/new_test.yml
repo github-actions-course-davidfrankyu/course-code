@@ -6,6 +6,9 @@ jobs:
     name: new build and test
     runs-on: ubuntu-latest
     timeout-minutes: 120
+    container:
+      image: iggyrs/iggy:latest
+      options: --platform linux/amd64
     steps:
       - uses: actions/checkout@v4
       - name: Cache cargo & target directories
