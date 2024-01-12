@@ -9,6 +9,12 @@ jobs:
     container:
       image: iggyrs/iggy:latest
       options: --platform linux/amd64
+      volumes:
+        - /var/run/docker.sock:/var/run/docker.sock
+        - /_work/_temp/_github_home:/root
+        - /_work/_temp/_github_workflow:/github/workflow
+        - /_work/_temp/_runner_file_commands:/github/file_commands
+        - /_work/course-code/course-code:/__w/course-code/course-code
     steps:
       - uses: actions/checkout@v4
       - name: ECHO STUFF
