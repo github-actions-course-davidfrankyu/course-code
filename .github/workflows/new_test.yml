@@ -44,7 +44,7 @@ jobs:
       - name: ECHO STUFF AGAIN 2
         run: |
           echo 'HELLO WORLD'
-          echo '$$GITHUB_PATH'
+          echo "$GITHUB_PATH"
           pwd
           ls -a
       - name: Run tests
