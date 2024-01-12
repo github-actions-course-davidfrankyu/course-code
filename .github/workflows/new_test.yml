@@ -10,10 +10,12 @@ jobs:
       image: iggyrs/iggy:latest
       options: --platform linux/amd64
       volumes:
-        - /var/run/docker.sock:/var/run/docker.sock
-        - /_work/_temp/_github_home:/root
-        - /_work/_temp/_runner_file_commands:/github/file_commands
-        - /_work/course-code/course-code:/__w/course-code/course-code
+        # - /var/run/docker.sock:/var/run/docker.sock
+        # - /_work/_temp/_github_home:/root
+        # - /_work/_temp/_runner_file_commands:/github/file_commands
+        # - /_work/course-code/course-code:/__w/course-code/course-code
+        - /__w/course-code/course-code:/__w/course-code/course-code
+        - /home/runner/work/_actions/houseabsolute/actions-rust-cross/v0:/__w/course-code/course-code/_actions/houseabsolute/actions-rust-cross/v0
     steps:
       - uses: actions/checkout@v4
       - name: ECHO STUFF
