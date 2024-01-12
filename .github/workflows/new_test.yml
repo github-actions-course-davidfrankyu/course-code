@@ -32,6 +32,7 @@ jobs:
       - name: ECHO STUFF AGAIN
         run: |
           echo 'HELLO WORLD'
+          echo "$GITHUB_EVENT_PATH"
           pwd
           ls -a
       - name: Build binary
