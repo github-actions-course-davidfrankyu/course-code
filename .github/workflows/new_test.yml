@@ -10,19 +10,9 @@ jobs:
       image: iggyrs/iggy:latest
       options: --platform linux/amd64
       volumes:
-        # - /var/run/docker.sock:/var/run/docker.sock
-        # - /_work/_temp/_github_home:/root
-        # - /_work/_temp/_runner_file_commands:/github/file_commands
-        # - /_work/course-code/course-code:/__w/course-code/course-code
-        # - /__w/course-code/course-code:/__w/course-code/course-code
-        - /home/runner/work/_actions/houseabsolute/actions-rust-cross/v0:/__w/course-code/course-code/_actions/houseabsolute/actions-rust-cross/v0
+        - /home/runner/work/_actions:/home/runner/work/_actions
     steps:
       - uses: actions/checkout@v4
-      - name: ECHO STUFF
-        run: |
-          echo 'HELLO WORLD'
-          pwd
-          ls -a
       - name: Cache cargo & target directories
         uses: Swatinem/rust-cache@v2
         with:
@@ -36,12 +26,6 @@ jobs:
           apt-get update --yes && apt-get install --yes musl-tools gnome-keyring keyutils
           rm -f $HOME/.local/share/keyrings/*
           echo -n "test" | gnome-keyring-daemon --unlock
-      - name: ECHO STUFF AGAIN
-        run: |
-          echo 'HELLO WORLD'
-          echo "$GITHUB_EVENT_PATH"
-          pwd
-          ls -a
       - name: Build binary
         uses: houseabsolute/actions-rust-cross@v0
         with:
@@ -49,12 +33,6 @@ jobs:
           target: x86_64-unknown-linux-musl
           toolchain: stable
           args: "--verbose --release"
-      - name: ECHO STUFF AGAIN 2
-        run: |
-          echo 'HELLO WORLD'
-          echo "$GITHUB_PATH"
-          pwd
-          ls -a
       - name: Run tests
         uses: houseabsolute/actions-rust-cross@v0
         with:
