@@ -1,14 +1,14 @@
-name: new_test
+name: qemu_test
 on: [push]
 
 jobs:
-  new_build_and_test:
+  qemu_build_and_test:
     name: new build and test
     runs-on: ubuntu-latest
     timeout-minutes: 120
     container:
       image: iggyrs/iggy:latest
-      options: --platform linux/amd64
+      options: --platform linux/arm/v7
       volumes:
         - /home/runner/work/_actions:/home/runner/work/_actions
     steps:
@@ -17,6 +17,8 @@ jobs:
         uses: Swatinem/rust-cache@v2
         with:
           key: "v2"
+      - name: Set environment variables
+        run: export QEMU_RUNNER=qemu-arm
       - name: Install musl-tools, gnome-keyring and keyutils on Linux
         run: |
           apt-get update --yes && apt-get install --yes musl-tools gnome-keyring keyutils curl libssl-dev pkg-config make perl build-essential
@@ -26,13 +28,13 @@ jobs:
         uses: houseabsolute/actions-rust-cross@v0
         with:
           command: "build"
-          target: x86_64-unknown-linux-musl
+          target: arm-unknown-linux-musleabi
           toolchain: stable
           args: "--verbose --release"
       - name: Run tests
         uses: houseabsolute/actions-rust-cross@v0
         with:
           command: "test"
-          target: x86_64-unknown-linux-musl
+          target: arm-unknown-linux-musleabi
           toolchain: stable
           args: "--verbose --release"
